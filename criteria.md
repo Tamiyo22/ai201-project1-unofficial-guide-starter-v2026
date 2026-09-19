@@ -4,13 +4,13 @@ Five criteria that say what "working" means for this system, written in unit 1
 **before** any results existed.
 
 An acceptance criterion names a target: a number, a count, a rate, or something
-a person could plainly observe. *"Retrieval works"* is an opinion. *"For at
+a person could plainly observe. _"Retrieval works"_ is an opinion. _"For at
 least 4 of my 5 test questions, the top results include a chunk containing the
-answer"* is a criterion.
+answer"_ is a criterion.
 
 Under each one, write a sentence or two on **why that target** and not a
 stricter or looser one. A reason that says something about your corpus or your
-pipeline earns credit; *"80% seemed reasonable"* does not.
+pipeline earns credit; _"80% seemed reasonable"_ does not.
 
 > Missing your own targets next unit costs you nothing. Setting a target so
 > easy you can't miss it does.
@@ -23,8 +23,7 @@ For at least 4 of my 5 test questions, the retrieved chunks include one that
 contains the answer.
 
 **Why this target:**
-<!-- e.g. "One of my questions is about a topic only two documents mention, so
-     I expect that one to be hard." -->
+I chose 4 out of 5 because information in the city_guides corpus appears in both individual town guides and regional guides, sometimes with different surrounding context. This makes one retrieval miss possible, while requiring four successful questions still demonstrates that the system finds the relevant section, does not hallucinate and is grounded.
 
 ---
 
@@ -33,65 +32,36 @@ contains the answer.
 Every answer the system produces names at least one source document.
 
 **Why this target:**
-<!-- Why all five and not four? What about your setup makes that achievable —
-     or what would have to go wrong for it not to be? -->
+I chose every answer because every retrieved chunk should be well grounded, and have a low distance from the source document, therefore the system should be able to cite a source for every answer. If an answer cannot name a source, that might hint at poor distance and retrieval.
 
 ---
 
 ## 3. The relevance gate stops out-of-corpus questions
 
 When I ask a question my documents clearly don't cover, the relevance gate
-stops it and the system returns "I don't have enough information about that" —
-in at least 4 of 5 tries.
-
-<!-- The five questions are the ones in `OUT_OF_SCOPE` at the bottom of
-     `questions.py`, and `run_eval.py` puts them through the gate and writes
-     what happened into your run log. Swap them for your own if you'd rather —
-     just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
+stops it and the system returns "I don't have enough information about that" or "I do not have enough information in the provided documents to answer" every time.
 
 **Why this target:**
-<!-- What did your distances look like when you set the cutoff in Milestone 4?
-     Was there a clean gap, or did the two groups overlap? -->
+The agent should be grounded and pull only from the documents provided to it, not from what it already knows.
 
 ---
 
 ## 4. Something about your chunks
 
-<!-- YOU WRITE THIS ONE.
-
-     How would you know if your chunks were the right size? Name something
-     countable or observable.
-
-     Examples of the right shape — don't copy these, they should come from
-     what you actually saw in Milestone 3:
-       - "At least 4 of 5 sampled chunks read as a complete thought, with no
-          sentence cut in half at either end."
-       - "No chunk is shorter than 200 characters, since anything below that
-          in my corpus turned out to be a heading with no content under it." -->
-
-
+At least 4 of 5 sampled chunks will contain one complete topic or headed section without including text from an unrelated section. There should be little overlap and all sentences should be complete.
 
 **Why this target:**
 
-
+The retrieval should have a low distance that is able to return a complete and accurate sentence that the user can easily understand.
 
 ---
 
 ## 5. Your choice
 
-<!-- YOU WRITE THIS ONE TOO.
-
-     Pick something you actually care about getting right. It could be about
-     speed, about refusals, about a particular kind of question your corpus
-     handles badly, about source attribution being correct rather than merely
-     present — anything, as long as it names a number or an observable
-     outcome. -->
-
-
+When the search tool returns nothing, the agent says so and moves on instead of crashing, in all 60 of my triggered failures.
 
 **Why this target:**
-
-
+The agent needs to be able to handle a high volume of failures and still work with multiple clients.
 
 ---
 
