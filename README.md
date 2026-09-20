@@ -148,31 +148,107 @@ a minor injuries unit locally with limited hours.
 
 ## Sample Answer
 
-<!-- One complete question and answer, pasted as text, with the source line
-     visible. Milestone 4. -->
+**Question:** python app.py ask "How frequently do Marchwood's trams run on weekdays?" --show-prompt
 
-**Question:**
+# Answer using only the documents above, and name the file you used.
 
-**Answer:**
+**Answer:** ======================================================================
+System instruction sent with the prompt
+======================================================================
+You answer questions using only the documents provided to you.
+
+Rules:
+
+- Use only the information in the documents below. Do not use anything you know from elsewhere.
+- If the documents don't cover the question, say you don't have enough information. Do not guess.
+- Name the document your answer came from, using the filename given in each excerpt.
+- Be brief. Two or three sentences is usually enough.
+
+======================================================================
+The assembled prompt, exactly as sent
+======================================================================
+Documents:
+
+[from guide_marchwood.md]
+
+# Marchwood
+
+## Getting around
+
+A tram network of four lines, running every 8 minutes on weekdays and every 15 at weekends, until midnight. A day ticket costs less than two single fares and nobody tells you this at the machine. The centre is walkable but the interesting districts are not adjacent to each other.
+
+[from guide_eating.md]
+
+# Eating across the region
+
+## Markets
+
+Kestrelford's Saturday market has run since the 1400s and is the region's best,
+
+though much reduced from November to February. Brightwater's Tuesday market
+
+sets up at 7am in the square and is finished by 1pm. Marchwood's covered market
+
+has operated since 1863, runs six days a week, and is at its best on a weekday
+
+morning.
+
+[from guide_marchwood.md]
+
+# Marchwood
+
+## Eat and drink
+
+The best eating is in the Northgate district, a 12-minute tram ride from the station, where about thirty restaurants sit within four streets. The area immediately around the station is uniformly poor and expensive. Marchwood keeps later hours than anywhere else in the region — kitchens serve until 10:30pm, and until midnight on Fridays and Saturdays.
+
+[from guide_kestrelford.md]
+
+# Kestrelford
+
+## When to go
+
+Late spring and early autumn. The Saturday market runs year-round but is much reduced from November to February. August is busy with walkers. The single-track approach road is genuinely difficult in snow and the town can be cut off for a day or two most winters.
+
+[from guide_marchwood.md]
+
+# Marchwood
+
+Marchwood is the regional hub — 180,000 people, the junction everyone changes trains at, and a city most visitors pass through rather than stop in. That is a mistake, though an understandable one, since almost nothing of interest is near the station.
+
+## Getting there
+
+Every railway line in the region meets here, which is the city's defining feature. Trains to Brightwater run every 40 minutes until 11pm. The airport is 20 minutes out by a dedicated bus that runs every 15 minutes and costs more than the equivalent taxi shared between three people.
+
+---
+
+Question: How frequently do Marchwood's trams run on weekdays?
+
+# Answer using only the documents above, and name the file you used.
+
+Marchwood's trams run every 8 minutes on weekdays (guide_marchwood.md).
+
+Sources retrieved: guide_eating.md, guide_kestrelford.md, guide_marchwood.md
 
 ```
 
 ```
 
-**My relevance cutoff:**
+**My relevance cutoff: 0.65**
 
-<!-- The number you set in config.py, and how you got there.
-
-     You ran five questions your corpus covers and the five in OUT_OF_SCOPE
-     that it clearly doesn't, and wrote down the best distance for each. What
-     did those two groups look like? Where was the gap? Put the actual numbers
-     here — the table below wants all ten rows.
-
-     Milestone 4. -->
+The five in-corpus questions had best distances ranging from 0.238 to 0.513. The five out-of-scope questions had best distances ranging from 0.835 to 0.997. This created a clear gap between 0.513 and 0.835. I selected 0.65 because it falls safely within that gap and favors refusing uncertain questions rather than producing unsupported answers. At this cutoff, the system answered all five in-corpus questions and rejected all five out-of-scope questions.
 
 | Question | In corpus? | Best distance |
-| -------- | ---------- | ------------- |
-|          |            |               |
+
+How frequently do Marchwood’s trams run on weekdays? Yes 0.238
+What is the easiest town for travelers with limited mobility? Yes 0.513
+Where can visitors find less expensive food in Halden Bay? Yes 0.333
+What time does Kestrelford’s bakery usually sell out? Yes 0.335
+Does Brightwater’s local bus operate on Sundays? Yes 0.289
+What is the capital of Mongolia? No 0.846
+How do I change the oil in a diesel engine? No 0.880
+Who won the 1994 World Cup? No 0.997
+What is the recommended dosage of ibuprofen for a headache? No 0.835
+How do I write a for loop in Rust? No 0.836
 
 ## How I Used AI
 

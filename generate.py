@@ -103,7 +103,8 @@ def _wait_for_slot() -> None:
             flush=True,
         )
         time.sleep(sleep_for)
-        _call_times[:] = [t for t in _call_times if time.monotonic() - t < 60.0]
+        _call_times[:] = [
+            t for t in _call_times if time.monotonic() - t < 60.0]
 
 
 def _check_budget() -> None:
@@ -140,8 +141,10 @@ def _record_tokens(response) -> None:
         meta = getattr(response, "usage_metadata", None)
         if meta is None:
             return
-        _session_prompt_tokens += int(getattr(meta, "prompt_token_count", 0) or 0)
-        _session_output_tokens += int(getattr(meta, "candidates_token_count", 0) or 0)
+        _session_prompt_tokens += int(getattr(meta,
+                                      "prompt_token_count", 0) or 0)
+        _session_output_tokens += int(getattr(meta,
+                                      "candidates_token_count", 0) or 0)
     except Exception:
         pass  # accounting never breaks the thing it is accounting for
 
@@ -273,7 +276,7 @@ def generate(prompt: str, system: str | None = None, cache: bool = True) -> str:
 
 # ─── The grounded answer ─────────────────────────────────────────────────────
 
-GROUNDING_INSTRUCTION = """You answer questions using only the documents provided to you.
+GROUNDING_INSTRUCTION = """You answer questions using only the documents provided to you. 
 
 Rules:
 - Use only the information in the documents below. Do not use anything you know from elsewhere.
