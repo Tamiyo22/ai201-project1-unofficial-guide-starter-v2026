@@ -64,7 +64,7 @@ def fallback_split(
         start = 0
         index = 0
         while start < len(doc.text):
-            piece = doc.text[start : start + chunk_size].strip()
+            piece = doc.text[start: start + chunk_size].strip()
             if piece:
                 chunks.append(
                     Chunk(
@@ -82,22 +82,77 @@ def fallback_split(
 
 def split_documents(documents: list[Document]) -> list[Chunk]:
     """
-    Split documents into chunks. ⚠️ REPLACE THE BODY OF THIS IN MILESTONE 3.
+    Split city guides at their Markdown section headings.
 
-    Right now it just calls the fallback. That is the plain, generic behaviour
-    the brief is talking about.
-
-    When you write your own strategy, set `produced_by` to
-    "chunker.py::split_documents" so your README's Sample Chunks section names
-    the right function. `app.py chunks` prints that string for you.
-
-    Things worth thinking about before you write any code:
-      - Are your documents short posts or long guides?
-      - Is the useful information in one sentence, or spread over a paragraph?
-      - Would splitting on paragraph breaks keep more thoughts intact than
-        splitting on a character count?
+    Each chunk keeps the document title and one complete headed section.
+    The introductory text is included with the first section.
     """
-    return fallback_split(documents)
+    chunks: list[Chunk] = []
+    for doc in documents:
+        lines = doc.text.splitlines()
+
+        title = next(
+            (line.strip() for line in lines if line.startswith("# ")),
+            f"# {doc.source}",
+        )
+
+        preamble: list[str] = []
+        sections: list[list[str]] = []
+        current_section: list[str] | None = None
+
+        for line in lines:
+            if line.startswith("# ") and not line.startswith("## "):
+                continue
+
+            if line.startswith("## "):
+                if current_section:
+                    sections.append(current_section)
+                current_section = [line]
+            elif current_section is None:
+                preamble.append(line)
+            else:
+                current_section.append(line)
+
+        if current_section:
+            sections.append(current_section)
+
+        if not sections:
+            text = doc.text.strip()
+
+            if text:
+                chunks.append(
+                    Chunk(
+                        text=text,
+                        source=doc.source,
+                        index=0,
+                        produced_by="chunker.py::split_documents",
+                    )
+                )
+
+            continue
+
+        for index, section in enumerate(sections):
+            parts = [title]
+
+            if index == 0:
+                introduction = "\n".join(preamble).strip()
+
+                if introduction:
+                    parts.append(introduction)
+
+            parts.append("\n\n".join(section).strip())
+            text = "\n\n".join(parts).strip()
+
+            chunks.append(
+                Chunk(
+                    text=text,
+                    source=doc.source,
+                    index=index,
+                    produced_by="chunker.py::split_documents",
+                )
+            )
+
+    return chunks
 
 
 def describe(chunks: list[Chunk]) -> str:
