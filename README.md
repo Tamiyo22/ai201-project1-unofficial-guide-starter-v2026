@@ -1,6 +1,6 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
+Melissa Hargis - city_guides
 
 > **This file is your submission.** Fill it in as you go — most sections get
 > written during the milestone that produces them, not at the end.
@@ -21,11 +21,7 @@
 
 ## What This Does
 
-<!-- Three or four sentences. Which corpus you picked, and the kinds of
-     questions your system answers. Write it for someone who has never seen
-     this repo.
-
-     Milestone 5. -->
+The Unofficial Guide is a retrieval-augmented question-answering system built from 14 fictional city and regional travel guides. It answers questions about transportation, accessibility, dining, accommodations, attractions, and the best times to visit. The system retrieves focused sections from the guides and generates brief answers that name their source documents. When the retrieved material is not relevant enough, the system refuses to answer rather than inventing information.
 
 ## Chunking Strategy
 
@@ -252,18 +248,11 @@ How do I write a for loop in Rust? No 0.836
 
 ## How I Used AI
 
-<!-- Two specific moments. For each: what you asked for, what came back, and
-     what you changed about it.
-
-     "I asked Claude to write the chunking function from my notes. It ignored
-     the overlap, so I added that myself" is the level of detail we're after.
-     "I used AI to help me code" is not.
-
-     Milestone 5. -->
-
 **1.**
+I first wrote a chunk acceptance target of three successful chunks out of five and asked ChatGPT to pressure test whether it was specific and defensible. It pointed out that 60% was a fairly weak target for documents with clearly labeled sections, so I changed the target to four out of five.
 
 **2.**
+I also asked ChatGPT for help designing a chunking strategy for the structured city guides. It suggested splitting at Markdown section headings and retaining the document title in every chunk. My first implementation produced only four chunks because return chunks was inside the document loop, so I used the output and code inspection to locate the indentation problem. After correcting the implementation and testing it again, the chunker processed all 14 documents and produced 84 complete, heading-based chunks.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
