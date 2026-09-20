@@ -231,20 +231,20 @@ Sources retrieved: guide_eating.md, guide_kestrelford.md, guide_marchwood.md
 
 **My relevance cutoff: 0.65**
 
-The five in-corpus questions had best distances ranging from 0.238 to 0.513. The five out-of-scope questions had best distances ranging from 0.835 to 0.997. This created a clear gap between 0.513 and 0.835. I selected 0.65 because it falls safely within that gap and favors refusing uncertain questions rather than producing unsupported answers. At this cutoff, the system answered all five in-corpus questions and rejected all five out-of-scope questions.
+The five in corpus questions had best distances ranging from 0.238 to 0.513, while the five out of scope questions ranged from 0.835 to 0.997. This created a clear gap between 0.513 and 0.835. The midpoint of that gap is approximately 0.67, but I selected 0.65 to be slightly more conservative and favor refusing uncertain questions rather than producing unsupported answers. The cutoff still leaves enough room above the highest in-corpus distance to answer all five supported questions, while rejecting all five out of scope questions.
 
 | Question | In corpus? | Best distance |
 
-How frequently do Marchwood’s trams run on weekdays? Yes 0.238
-What is the easiest town for travelers with limited mobility? Yes 0.513
-Where can visitors find less expensive food in Halden Bay? Yes 0.333
-What time does Kestrelford’s bakery usually sell out? Yes 0.335
-Does Brightwater’s local bus operate on Sundays? Yes 0.289
-What is the capital of Mongolia? No 0.846
-How do I change the oil in a diesel engine? No 0.880
-Who won the 1994 World Cup? No 0.997
-What is the recommended dosage of ibuprofen for a headache? No 0.835
-How do I write a for loop in Rust? No 0.836
+How frequently do Marchwood’s trams run on weekdays? | Yes | 0.238
+What is the easiest town for travelers with limited mobility? |Yes| 0.513
+Where can visitors find less expensive food in Halden Bay? | Yes |0.333
+What time does Kestrelford’s bakery usually sell out? |Yes |0.335
+Does Brightwater’s local bus operate on Sundays? |Yes |0.289
+What is the capital of Mongolia? | No | 0.846
+How do I change the oil in a diesel engine? | No | 0.880
+Who won the 1994 World Cup? | No | 0.997
+What is the recommended dosage of ibuprofen for a headache? | No | 0.835
+How do I write a for loop in Rust? | No | 0.836
 
 ## How I Used AI
 
@@ -253,11 +253,6 @@ I first wrote a chunk acceptance target of three successful chunks out of five a
 
 **2.**
 I also asked ChatGPT for help designing a chunking strategy for the structured city guides. It suggested splitting at Markdown section headings and retaining the document title in every chunk. My first implementation produced only four chunks because return chunks was inside the document loop, so I used the output and code inspection to locate the indentation problem. After correcting the implementation and testing it again, the chunker processed all 14 documents and produced 84 complete, heading-based chunks.
-
-<!-- ── Stretch features ─────────────────────────────────────────────────────
-     Doing one? Say so here BEFORE you start. A feature this README never
-     claims earns nothing.
-     ───────────────────────────────────────────────────────────────────────── -->
 
 ---
 
