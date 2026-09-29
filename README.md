@@ -376,17 +376,20 @@ refused (best distance 0.836) How do I write a for loop in Rust?
 
 
 
-| #   | Criterion                              | Verdict | How I decided |
-| --- | -------------------------------------- | ------- | ------------- |
-| 1.  |Retrieved chunk contains the answer       | MET     | Four out of five answers included the expected keywords. For the question "Does Brightwater’s local bus operate on Sundays?", the response was: "No, the local bus stops entirely on Sundays. Source: guide_brightwater.md". The initial evaluation expectation was that the response would include the words "minimal to non-existent". However, after reviewing the corpus, I realized my evaluation criterion itself was flawed, not the model's output. Therefore, I updated the final verdict to MET instead of MISSED.|
+| # | Criterion | Verdict | How I decided |
+| --- | --- | --- | --- |
+| 1 | Retrieved chunk contains the answer | MET | Four out of five answers included the expected keywords. For the question "Does Brightwater’s local bus operate on Sundays?", the response was: "No, the local bus stops entirely on Sundays. Source: guide_brightwater.md". The initial evaluation expectation was that the response would include the words "minimal to non-existent". However, after reviewing the corpus, I realized my evaluation criterion itself was flawed, not the model's output. Therefore, I updated the final verdict to MET instead of MISSED. |
+| 2 | Every answer names a source | MET | All five answers include a source, even the question that did not entirely meet answer expectations included rescources to validate its response. |
+| 3 | Gate stops out-of-corpus questions | MET | Five out of five out-of-corpus questions successfully triggered the expected refusal response. Additional exploratory testing yielded the same consistent results. |
+| 4 | Exclude text from an unrelated sections | MET | All five responses remained strictly within the scope of the queried topic without pulling in irrelevant information. |
+| 5 | Agent doesn't crash | MET | The agent remained stable across multiple tests and query variations. Response times and performance were consistently stable. |
+Use code with caution.
+Why it was breaking:
+• Blank lines: Markdown interprets an empty line as the end of a block. The extra blank spaces were cutting off your table after the first row.
+• Inconsistent pipes (|): Row 1 had a closing pipe at the end of the text, but rows 2-5 were missing them or containing extra space parameters before/after. Keeping one closing pipe at the absolute end of each line guarantees it renders perfectly.
+Would you like me to fix the minor typos in the table text (such as "rescources" and grammar syntax) while keeping this clean GitHub formatting?
+Try without personalization
 
-| 2.  | Every answer names a source               | MET     | All five answers include a source, even the question that did not entirely meet answer expectations included rescources to validate its response.|
-
-| 3. | Gate stops out-of-corpus questions        | MET     | 	Five out of five out-of-corpus questions successfully triggered the expected refusal response. Additional exploratory testing yielded the same consistent results.|
-
-| 4.| Exclude text from an unrelated sections   | MET     | 	All five responses remained strictly within the scope of the queried topic without pulling in irrelevant information.|
-
-| 5.| Agent doesn't crash                       | MET     | The agent remained stable across multiple tests and query variations. Response times and performance were consistently stable.|
 
 ## Diagnoses
 
