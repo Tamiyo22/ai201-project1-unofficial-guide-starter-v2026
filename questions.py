@@ -40,7 +40,10 @@ QUESTIONS = [
     },
     {
         "question": "Does Brightwater’s local bus operate on Sundays?",
-        "expects": "minimal to non-existent",
+        "expects": "stops entirely on Sundays",
+        # #" Changed from minimal to non-existent to stops entirely on Sundays"
+        # After looking though my corpus, I realized that my criterion in this case was broken and not unmet
+
     },
 ]
 

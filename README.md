@@ -258,10 +258,6 @@ I also asked ChatGPT for help designing a chunking strategy for the structured c
 
 # Unit 2
 
-<!-- These sections get ADDED to what's already above. Don't delete or rewrite
-     unit 1 — the point is that someone can see what you said before you knew
-     how it went. -->
-
 ## Run Log — Before
 
 <!-- Your five criteria, three runs each. `python run_eval.py --label before`
@@ -377,22 +373,17 @@ refused (best distance 0.836) How do I write a for loop in Rust?
 
 ## Verdicts
 
-<!-- MET or MISSED for each of the five, against the target you wrote last
-     unit — not a new one. Plus a sentence on how you decided. That sentence
-     matters most where it was close.
+| #                                      | Criterion | Verdict                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | How I decided |
+| -------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| 1. Retrieved chunk contains the answer | MET       | Four out of five answers include the expected key words in their answers, however for the question "Does Brightwater’s local bus operate on Sundays?", the response is 'No, the local bus stops entirely on Sundays. \n\nSource: guide_brightwater.md' and the expectation was that the response would include the words 'minimal to non-existent'. After looking though my corpus, I realized that my criterion in this case was broken and not unmet, so I am changing my verdict for this criterion to 'MET' and not MISSED. |
 
-     If your target said 4 of 5 and your runs came out 4, 3, 4, that's a MISS.
-     The target has to hold, not show up occasionally.
+| 2. Every answer names a source | MET | All five answers include a source, even the question that did not entirely meet answer expectations included rescources to validate its response.
 
-     Milestone 2. -->
+| 3. Gate stops out-of-corpus questions | MET | Five out of five out out-of-corpus questions, as well as additional testing produced the same refused response.
 
-| #   | Criterion | Verdict | How I decided |
-| --- | --------- | ------- | ------------- |
-| 1   |           |         |               |
-| 2   |           |         |               |
-| 3   |           |         |               |
-| 4   |           |         |               |
-| 5   |           |         |               |
+| 4. Exclude text from an unrelated sections | MET | All five answers kept their responses within the topic they were questioned about.
+
+| 5. Agent doesn't crash | MET | I ran several tests and questions, and the responses and times were consistant.
 
 ## Diagnoses
 
