@@ -46,9 +46,9 @@ The agent should be grounded and pull only from the documents provided to it, no
 
 ---
 
-## 4. Something about your chunks
+## 4. Exclude text from an unrelated sections
 
-At least 4 of 5 sampled chunks will contain one complete topic or headed section without including text from an unrelated section. There should be little overlap and all sentences should be complete.
+Chunks will contain one complete topic or headed section without including text from an unrelated section. There should be little overlap and all sentences should be complete.
 
 **Why this target:**
 
@@ -56,7 +56,7 @@ The retrieval should have a low distance that is able to return a complete and a
 
 ---
 
-## 5. Your choice
+## 5. Agent doesn't crash
 
 When the search tool returns nothing, the agent says so and moves on instead of crashing, in all 60 of my triggered failures.
 

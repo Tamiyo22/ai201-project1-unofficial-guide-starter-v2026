@@ -274,17 +274,106 @@ I also asked ChatGPT for help designing a chunking strategy for the structured c
 
      Milestone 1. -->
 
-| Criterion                              | Target | Run 1 | Run 2 | Run 3 | Verdict |
-| -------------------------------------- | ------ | ----- | ----- | ----- | ------- |
-| 1. Retrieved chunk contains the answer | 4 of 5 |       |       |       |         |
-| 2. Every answer names a source         | 5 of 5 |       |       |       |         |
-| 3. Gate stops out-of-corpus questions  | 4 of 5 |       |       |       |         |
-| 4.                                     |        |       |       |       |         |
-| 5.                                     |        |       |       |       |         |
+| Criterion                                  | Target | Run 1 | Run 2 | Run 3 | Verdict |
+| ------------------------------------------ | ------ | ----- | ----- | ----- | ------- |
+| 1. Retrieved chunk contains the answer     | 4 of 5 | 4/5   | 4/5   | 4/5   | MISSED  |
+| 2. Every answer names a source             | 5 of 5 | 5/5   | 5/5   | 5/5   | MET     |
+| 3. Gate stops out-of-corpus questions      | 5 of 5 | 5/5   | 5/5   | 5/5   | MET     |
+| 4. Exclude text from an unrelated sections | 5 of 5 | 5/5   | 5/5   | 5/5   | MET     |
+| 5. Agent doesn't crash                     | 5 of 5 | 5/5   | 5/5   | 5/5   | MET     |
 
-<!-- Underneath, paste the REAL output for each criterion from one of your
-     runs — the actual text your system produced, not a description of it.
-     Name the file and function that produced it. -->
+How frequently do Marchwood’s trams run on weekdays?
+
+QUESTION: How frequently do Marchwood’s trams run on weekdays?
+EXPECTS: '8 minutes'
+ANSWER : "Marchwood's trams run every 8 minutes on weekdays (guide_marchwood.md)."
+run 1: pass (best distance 0.238)
+
+QUESTION: How frequently do Marchwood’s trams run on weekdays?
+EXPECTS: '8 minutes'
+ANSWER : "Marchwood's trams run every 8 minutes on weekdays (from `guide_marchwood.md`)."
+run 2: pass (best distance 0.238)
+
+QUESTION: How frequently do Marchwood’s trams run on weekdays?
+EXPECTS: '8 minutes'
+ANSWER : "Marchwood's trams run every 8 minutes on weekdays (from guide_marchwood.md)."
+run 3: pass (best distance 0.238)
+
+What is the easiest town for travelers with limited mobility?
+
+QUESTION: What is the easiest town for travelers with limited mobility?
+EXPECTS: 'Thornby Wells'
+ANSWER : 'Based on the provided documents, Thornby Wells is the easiest town in the region for travelers with limited mobility. \n\nSource: guide_accessibility.md'
+run 1: pass (best distance 0.513)
+
+QUESTION: What is the easiest town for travelers with limited mobility?
+EXPECTS: 'Thornby Wells'
+ANSWER : 'The easiest town for travelers with limited mobility is Thornby Wells, as it is flat, compact, and everything is within three minutes of everything else. \n\nSource: `guide_accessibility.md`'
+run 2: pass (best distance 0.513)
+
+QUESTION: What is the easiest town for travelers with limited mobility?
+EXPECTS: 'Thornby Wells'
+ANSWER : 'The easiest town for travelers with limited mobility is Thornby Wells (source: `guide_accessibility.md`).'
+run 3: pass (best distance 0.513)
+
+Where can visitors find less expensive food in Halden Bay?
+
+QUESTION: Where can visitors find less expensive food in Halden Bay?
+EXPECTS: 'Fell Street'
+ANSWER : 'Visitors can find less expensive food on Fell Street, one level up from the harbour front. \n\nSources: \n- `guide_halden_bay.md`\n- `guide_eating.md`'
+run 1: pass (best distance 0.333)
+
+QUESTION: Where can visitors find less expensive food in Halden Bay?
+EXPECTS: 'Fell Street'
+ANSWER : 'Visitors can find less expensive food on Fell Street, which has comparable food for roughly half the price of the harbour front. \n\nSources: `guide_halden_bay.md` and `guide_eating.md`'
+run 2: pass (best distance 0.333)
+
+QUESTION: Where can visitors find less expensive food in Halden Bay?
+EXPECTS: 'Fell Street'
+ANSWER : 'Visitors can find less expensive food on Fell Street, which is located one level up from the harbour front. \n\nSources: `guide_halden_bay.md` and `guide_eating.md`'
+run 3: pass (best distance 0.333)
+
+What time does Kestrelford’s bakery usually sell out?
+
+QUESTION: What time does Kestrelford’s bakery usually sell out?
+EXPECTS: '11am'
+ANSWER : "Kestrelford's bakery usually sells out by 11am. \n\nSources: `guide_kestrelford.md` and `guide_eating.md`"
+run 1: pass (best distance 0.335)
+
+QUESTION: What time does Kestrelford’s bakery usually sell out?
+EXPECTS: '11am'
+ANSWER : "Kestrelford's bakery usually sells out by 11am. \n\nSources: `guide_kestrelford.md` and `guide_eating.md`"
+run 2: pass (best distance 0.335)
+
+QUESTION: What time does Kestrelford’s bakery usually sell out?
+EXPECTS: '11am'
+ANSWER : "Kestrelford's bakery usually sells out by 11am. \n\nSources: `guide_kestrelford.md` and `guide_eating.md`"
+run 3: pass (best distance 0.335)
+
+Does Brightwater’s local bus operate on Sundays?
+
+QUESTION: Does Brightwater’s local bus operate on Sundays?
+EXPECTS: 'minimal to non-existent'
+ANSWER : 'No, the local bus stops entirely on Sundays (guide_brightwater.md).'
+run 1: fail (best distance 0.289)
+
+QUESTION: Does Brightwater’s local bus operate on Sundays?
+EXPECTS: 'minimal to non-existent'
+ANSWER : 'No, the local bus stops entirely on Sundays. \n\nSource: guide_brightwater.md'
+run 2: fail (best distance 0.289)
+
+QUESTION: Does Brightwater’s local bus operate on Sundays?
+EXPECTS: 'minimal to non-existent'
+ANSWER : 'No, the local bus stops entirely on Sundays. \n\nSource: guide_brightwater.md'
+run 3: fail (best distance 0.289)
+
+Out-of-scope questions (the gate should refuse these):
+refused (best distance 0.846) What is the capital of Mongolia?
+refused (best distance 0.903) How do I change the oil in a diesel engine?
+refused (best distance 0.997) Who won the 1994 World Cup?
+refused (best distance 0.835) What is the recommended dosage of ibuprofen for a headache?
+refused (best distance 0.836) How do I write a for loop in Rust?
+-> gate refused 5 of 5
 
 ## Verdicts
 
