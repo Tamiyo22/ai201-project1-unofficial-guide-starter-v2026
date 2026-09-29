@@ -522,17 +522,9 @@ Yes. The change helped because it fixed the only criterion that was failing duri
 
 ## What's Still Broken
 
-<!-- For each criterion still missed after your fix: what you'd do about it,
-     and why you stopped where you did.
+None of the original evaluation criteria are currently failing. However, the evaluation still relies on exact string matching in some places, which could make it sensitive to wording differences even when an answer is factually correct. If I continued improving the project, I would make the evaluation more robust by checking for semantic correctness rather than exact phrases. I stopped here because the project now meets the required criteria and the remaining improvements are enhancements rather than fixes for failing tests.
 
-     "I ran out of time" is fine if it's true. Pretending nothing is left is
-     not.
-
-     Milestone 5. -->
 
 ## What I'd Do Differently
 
-<!-- Knowing what you know now — which of your five criteria would you write
-     differently, and why?
-
-     Milestone 5. -->
+I would write the criterion about answer correctness differently. Initially, I treated a question as correct only if the expected phrase appeared in the generated answer. During testing, I found that a correct answer could still be marked as incorrect because of wording differences rather than an actual retrieval or reasoning problem. If I rewrote the criterion, I would focus on whether the answer communicates the correct information and cites the appropriate source rather than requiring a specific phrase. This would better measure the quality of the RAG system and reduce false failures caused by evaluation wording.
