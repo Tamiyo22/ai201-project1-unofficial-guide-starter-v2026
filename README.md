@@ -383,12 +383,7 @@ refused (best distance 0.836) How do I write a for loop in Rust?
 | 3 | Gate stops out-of-corpus questions | MET | Five out of five out-of-corpus questions successfully triggered the expected refusal response. Additional exploratory testing yielded the same consistent results. |
 | 4 | Exclude text from an unrelated sections | MET | All five responses remained strictly within the scope of the queried topic without pulling in irrelevant information. |
 | 5 | Agent doesn't crash | MET | The agent remained stable across multiple tests and query variations. Response times and performance were consistently stable. |
-Use code with caution.
-Why it was breaking:
-• Blank lines: Markdown interprets an empty line as the end of a block. The extra blank spaces were cutting off your table after the first row.
-• Inconsistent pipes (|): Row 1 had a closing pipe at the end of the text, but rows 2-5 were missing them or containing extra space parameters before/after. Keeping one closing pipe at the absolute end of each line guarantees it renders perfectly.
-Would you like me to fix the minor typos in the table text (such as "rescources" and grammar syntax) while keeping this clean GitHub formatting?
-Try without personalization
+
 
 
 ## Diagnoses
