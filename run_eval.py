@@ -69,9 +69,12 @@ def run_once(question: str, top_k, threshold, corpus, variant):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run the test questions and log the results.")
-    parser.add_argument("--runs", type=int, default=3, help="runs per question (default 3)")
-    parser.add_argument("--label", default="", help="a name for this run, e.g. 'before'")
+    parser = argparse.ArgumentParser(
+        description="Run the test questions and log the results.")
+    parser.add_argument("--runs", type=int, default=3,
+                        help="runs per question (default 3)")
+    parser.add_argument("--label", default="",
+                        help="a name for this run, e.g. 'before'")
     parser.add_argument("--corpus", default=None)
     parser.add_argument("--variant", default="default")
     parser.add_argument("--top-k", type=int, default=None)
@@ -112,11 +115,13 @@ def main():
             answer, results, decision = run_once(
                 question, top_k, threshold, corpus, args.variant
             )
-            passed = judge(question, expects, answer, results) if judge else None
+            passed = judge(question, expects, answer,
+                           results) if judge else None
             run_results.append(passed)
 
             mark = {True: "pass", False: "fail", None: "—"}[passed]
-            print(f"  run {run}: {mark}  (best distance {decision.best_distance:.3f})")
+            print(
+                f"  run {run}: {mark}  (best distance {decision.best_distance:.3f})")
 
             transcript.append(
                 {
@@ -129,7 +134,8 @@ def main():
                 }
             )
 
-        rows.append({"question": question, "expects": expects, "runs": run_results})
+        rows.append(
+            {"question": question, "expects": expects, "runs": run_results})
 
     gate_rows = check_out_of_scope(top_k, threshold, corpus, args.variant)
 
@@ -240,7 +246,8 @@ def write_report(rows, transcript, gate_rows, args, corpus, top_k, threshold, sc
         for row in gate_rows:
             question = row["question"].replace("|", "\\|")
             verdict = "refused" if row["refused"] else "**let through**"
-            lines.append(f"| {question} | {row['best_distance']:.3f} | {verdict} |")
+            lines.append(
+                f"| {question} | {row['best_distance']:.3f} | {verdict} |")
 
     lines += ["", "---", "", "## Real output", "",
               "This is what the system actually produced. Paste the relevant parts",
